@@ -1,0 +1,43 @@
+{
+    "name": "yansongda/laravel-api",
+    "description": "基于 access_token 的多用户 API 认证系统",
+    "keywords": ["api", "laravel", "access_token"],
+    "support": {
+        "issues": "https://github.com/yansongda/laravel-api/issues",
+        "source": "https://github.com/yansongda/laravel-api"
+    },
+    "authors": [
+        {
+            "name": "yansongda",
+            "email": "me@yansongda.cn"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": "^5.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yansongda\\LaravelApi\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Yansongda\\LaravelApi\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Yansongda\\LaravelApi\\ApiServiceProvider"
+            ],
+            "aliases": {
+                "Api": "Yansongda\\LaravelApi\\Facades\\Api"
+            }
+        }
+    },
+    "license": "MIT"
+}
