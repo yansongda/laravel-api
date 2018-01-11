@@ -1,6 +1,6 @@
 <?php
 
-namespace Yansongda\LaravelApi\Middleware;
+namespace Yansongda\LaravelApi\Http\Middleware;
 
 use Closure;
 
