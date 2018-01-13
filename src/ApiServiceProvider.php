@@ -71,8 +71,12 @@ class PayServiceProvider extends ServiceProvider
                 dirname(__DIR__).'/config/api.php' => config_path('api.php'), ],
                 'laravel-api-config'
             );
+
+            Api::setUserModelEnvironment('laravel');
         } elseif ($this->app instanceof LumenApplication) {
             $this->app->configure('api');
+
+            Api::setUserModelEnvironment('lumen');
         }
     }
 
