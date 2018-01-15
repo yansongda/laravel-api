@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Yansongda\LaravelApi\Exceptions\AccessTokenExpiredException;
+use Yansongda\LaravelApi\Exceptions\AccessTokenNotProvidedException;
 use Yansongda\LaravelApi\Exceptions\InvalidAccessTokenException;
 use Yansongda\LaravelApi\Models\AccessToken;
 
@@ -94,6 +95,10 @@ class TokenGuard implements Guard
             $token = $this->request->getPassword();
         }
 
+        if (empty($token)) {
+            throw new AccessTokenNotProvidedException("AccessToken Is Not Provided", 1);
+        }
+
         return $token;
     }
 
@@ -109,11 +114,14 @@ class TokenGuard implements Guard
     protected function findAccessToken($token)
     {
         if (is_null($accessToken = AccessToken::where('access_token', $token)->first())) {
-            throw new InvalidAccessTokenException('AccessToken Is Invalid', 1);
+            throw new InvalidAccessTokenException('AccessToken Is Invalid', 2);
         }
 
         if (Carbon::now()->gte($accessToken->expired_at)) {
-            throw new AccessTokenExpiredException('AccessToken Is Expired', 2);
+            throw new AccessTokenExpiredException(
+                'AccessToken Is Expired', 3,
+                ['now' => Carbon::now(), 'expired' => $accessToken->expired_at]
+            );
         }
 
         return $accessToken;
