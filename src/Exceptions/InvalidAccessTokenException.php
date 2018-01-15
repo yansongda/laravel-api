@@ -2,7 +2,7 @@
 
 namespace Yansongda\LaravelApi\Exceptions;
 
-class InvaildAccessTokenException extends Exception
+class InvalidAccessTokenException extends Exception
 {
     /**
      * Raw data.

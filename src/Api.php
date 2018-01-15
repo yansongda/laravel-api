@@ -2,35 +2,36 @@
 
 namespace Yansongda\LaravelApi;
 
+use Illuminate\Foundation\Application as LaravelApplication;
+use Laravel\Lumen\Application as LumenApplication;
+
 class Api
 {
     /**
      * User model.
      *
-     * @var [type]
+     * @var \Illuminate\Contracts\Auth\UserProvider
      */
     public static $user;
 
     /**
-     * Set user model
+     * Determin user provider.
      *
      * @author yansongda <me@yansongda.cn>
      *
-     * @param string $app
+     * @param LaravelApplication|LumenApplication $app
+     *
+     * @return void
      */
-    public static function setUserModelEnvironment($app = 'lumen')
+    public static function determinUserProvider($app)
     {
-        switch ($app) {
-            case 'laravel':
-                $provider = config('auth.guards.api.provider');
-                self::$user = config('auth.providers.'.$provider.'.model');
-                break;
-            
-            default:
-                self::$user = config('api.user');
-                break;
+        if ($app instanceof LaravelApplication) {
+            $provider = config('auth.guards.api.provider');
+            self::$user = config('auth.providers.'.$provider.'.model');
         }
 
-        return self::$user;
+        if ($app instanceof LumenApplication) {
+            self::$user = config('api.user');
+        }
     }
 }
