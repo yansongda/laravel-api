@@ -36,10 +36,7 @@
         "laravel": {
             "providers": [
                 "Yansongda\\LaravelApi\\ApiServiceProvider"
-            ],
-            "aliases": {
-                "Api": "Yansongda\\LaravelApi\\Facades\\Api"
-            }
+            ]
         }
     },
     "license": "MIT"
