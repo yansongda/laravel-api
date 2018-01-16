@@ -15,6 +15,13 @@ class Api
     public static $user;
 
     /**
+     * Route prefix.
+     *
+     * @var string
+     */
+    public static $routePrefix = 'api';
+
+    /**
      * Determin user provider.
      *
      * @author yansongda <me@yansongda.cn>
@@ -33,5 +40,19 @@ class Api
         if ($app instanceof LumenApplication) {
             self::$user = config('api.user');
         }
+    }
+
+    /**
+     * Set route prefix.
+     *
+     * @author yansongda <me@yansongda.cn>
+     *
+     * @param string $prefix
+     *
+     * @return void
+     */
+    public static function setRoutePrefix($prefix = '')
+    {
+        self::$routePrefix = $prefix;
     }
 }

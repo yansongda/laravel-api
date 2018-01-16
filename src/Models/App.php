@@ -45,6 +45,6 @@ class App extends Model
      */
     public function token()
     {
-        $this->hasOne(AccessToken::class, 'app_id', 'id');
+        return $this->hasOne(AccessToken::class, 'app_id', 'app_id');
     }
 }

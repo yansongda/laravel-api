@@ -103,11 +103,7 @@ class ApiServiceProvider extends ServiceProvider
     protected function registerGuard()
     {
         Auth::extend('api', function ($app, $name, array $config) {
-            $guard = new TokenGuard($app['request']);
-
-            // TODO:reload request.
-
-            return $guard;
+            return new TokenGuard($app['request']);
         });
     }
 }

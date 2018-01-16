@@ -14,13 +14,13 @@ class CreateApiAppsTable extends Migration
     public function up()
     {
         Schema::create('api_apps', function (Blueprint $table) {
-            $table->string('id', 190);
+            $table->string('app_id', 190);
             $table->integer('user_id');
             $table->string('app_secret');
             $table->string('others')->nullable();
             $table->timestamps();
 
-            $table->unique('id');
+            $table->unique('app_id');
             $table->index('user_id');
         });
     }

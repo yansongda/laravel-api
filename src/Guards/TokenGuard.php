@@ -10,6 +10,7 @@ use Yansongda\LaravelApi\Exceptions\AccessTokenExpiredException;
 use Yansongda\LaravelApi\Exceptions\AccessTokenNotProvidedException;
 use Yansongda\LaravelApi\Exceptions\InvalidAccessTokenException;
 use Yansongda\LaravelApi\Models\AccessToken;
+use Yansongda\LaravelApi\Models\App;
 
 class TokenGuard implements Guard
 {
@@ -21,6 +22,13 @@ class TokenGuard implements Guard
      * @var Request
      */
     protected $request;
+
+    /**
+     * The app.
+     *
+     * @var App
+     */
+    protected $app;
 
     /**
      * The name of the query string item from the request containing the API token.
@@ -51,11 +59,31 @@ class TokenGuard implements Guard
      */
     public function user()
     {
-        $token = $this->parseAccessToken();
+        if (! is_null($this->user)) {
+            return $this->user;
+        }
 
-        $accessToken = $this->findAccessToken($token);
+        $accessToken = $this->parseAccessToken();
 
         return $this->user = $accessToken->user;
+    }
+
+    /**
+     * Get the currently app.
+     *
+     * @author yansongda <me@yansongda.cn>
+     *
+     * @return App
+     */
+    public function app()
+    {
+        if (! is_null($this->app)) {
+            return $this->app;
+        }
+
+        $accessToken = $this->parseAccessToken();
+
+        return $this->app = $accessToken->app;
     }
 
     /**
@@ -69,11 +97,25 @@ class TokenGuard implements Guard
      */
     public function validate(array $credentials = [])
     {
-        if ($this->findAccessToken($credentials['access_token'])) {
+        if ($this->queryAccessToken($credentials['access_token'])) {
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * Parse accessToken.
+     *
+     * @author yansongda <me@yansongda.cn>
+     *
+     * @return AccessToken
+     */
+    protected function parseAccessToken()
+    {
+        $token = $this->findAccessToken();
+
+        return $this->queryAccessToken($token);
     }
 
     /**
@@ -83,7 +125,7 @@ class TokenGuard implements Guard
      *
      * @return string
      */
-    protected function parseAccessToken()
+    protected function findAccessToken()
     {
         $token = $this->request->query($this->inputKey);
 
@@ -95,15 +137,15 @@ class TokenGuard implements Guard
             $token = $this->request->getPassword();
         }
 
-        if (empty($token)) {
-            throw new AccessTokenNotProvidedException("AccessToken Is Not Provided", 1);
+        if (! empty($token)) {
+            return $token;
         }
 
-        return $token;
+        throw new AccessTokenNotProvidedException("AccessToken Is Not Provided", 1);
     }
 
     /**
-     * Find accessToken.
+     * Query accessToken.
      *
      * @author yansongda <me@yansongda.cn>
      *
@@ -111,19 +153,19 @@ class TokenGuard implements Guard
      *
      * @return AccessToken
      */
-    protected function findAccessToken($token)
+    protected function queryAccessToken($token)
     {
         if (is_null($accessToken = AccessToken::where('access_token', $token)->first())) {
             throw new InvalidAccessTokenException('AccessToken Is Invalid', 2);
         }
 
-        if (Carbon::now()->gte($accessToken->expired_at)) {
-            throw new AccessTokenExpiredException(
-                'AccessToken Is Expired', 3,
-                ['now' => Carbon::now(), 'expired' => $accessToken->expired_at]
-            );
+        if (Carbon::now()->lte($accessToken->expired_at)) {
+            return $accessToken;
         }
 
-        return $accessToken;
+        throw new AccessTokenExpiredException(
+            'AccessToken Is Expired', 3,
+            ['now' => Carbon::now(), 'expired' => $accessToken->expired_at]
+        );
     }
 }

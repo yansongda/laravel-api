@@ -45,6 +45,6 @@ class AccessToken extends Model
      */
     public function app()
     {
-        $this->belongsTo(App::class, 'app_id', 'id');
+        return $this->belongsTo(App::class, 'app_id', 'app_id');
     }
 }
