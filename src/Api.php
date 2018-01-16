@@ -24,27 +24,6 @@ class Api
     public static $routePrefix = 'api';
 
     /**
-     * Detect user provider.
-     *
-     * @author yansongda <me@yansongda.cn>
-     *
-     * @param LaravelApplication|LumenApplication $app
-     *
-     * @return void
-     */
-    public static function detectUserProvider($app)
-    {
-        if ($app instanceof LaravelApplication) {
-            $provider = config('auth.guards.api.provider');
-            self::$user = config('auth.providers.'.$provider.'.model');
-        }
-
-        if ($app instanceof LumenApplication) {
-            self::$user = config('api.user');
-        }
-    }
-
-    /**
      * Set route prefix.
      *
      * @author yansongda <me@yansongda.cn>
@@ -70,7 +49,7 @@ class Api
     public static function generateAccessToken($app)
     {
         if (! $app instanceof App) {
-            throw new GenerateAccessTokenException('['.get_class($app).']Must Be An Instance Of [Yansongda\LaravelApi\Models\App]');
+            throw new GenerateAccessTokenException('['.get_class($app).'] Must Be An Instance Of [Yansongda\LaravelApi\Models\App]');
         }
 
         return md5(uniqid('access_token', true).$app->app_id.$app->user_id);

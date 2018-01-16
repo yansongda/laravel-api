@@ -30,10 +30,6 @@ class ApiServiceProvider extends ServiceProvider
         $this->loadResources();
 
         $this->publishResources();
-
-        if ($this->app instanceof LumenApplication) {
-            $this->app->configure('api');
-        }
     }
 
     /**
@@ -49,7 +45,7 @@ class ApiServiceProvider extends ServiceProvider
 
         $this->registerGuard();
 
-        Api::detectUserProvider($this->app);
+        $this->detectUserProvider();
     }
 
     /**
@@ -84,12 +80,10 @@ class ApiServiceProvider extends ServiceProvider
         $this->publishes([
             dirname(__DIR__).'/database/migrations' => database_path('migrations')
         ], 'laravel-api-migrations');
-
-        if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
-            $this->publishes([
-                dirname(__DIR__).'/config/api.php' => config_path('api.php'),
-            ], 'laravel-api-config');
-        }
+        
+        $this->publishes([
+            dirname(__DIR__).'/config/api.php' => config_path('api.php'),
+        ], 'laravel-api-config');
     }
 
     /**
@@ -104,5 +98,19 @@ class ApiServiceProvider extends ServiceProvider
         Auth::extend('api', function ($app, $name, array $config) {
             return new TokenGuard($app['request']);
         });
+    }
+
+    /**
+     * Detect user provider.
+     *
+     * @author yansongda <me@yansongda.cn>
+     *
+     * @return void
+     */
+    protected function detectUserProvider()
+    {
+        $provider = config('auth.guards.api.provider');
+
+        Api::$user = config('auth.providers.'.$provider.'.model');
     }
 }
