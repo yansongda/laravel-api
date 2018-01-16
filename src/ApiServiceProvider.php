@@ -31,7 +31,7 @@ class ApiServiceProvider extends ServiceProvider
 
         $this->publishResources();
 
-         if ($this->app instanceof LumenApplication) {
+        if ($this->app instanceof LumenApplication) {
             $this->app->configure('api');
         }
     }
@@ -49,7 +49,7 @@ class ApiServiceProvider extends ServiceProvider
 
         $this->registerGuard();
 
-        Api::determinUserProvider($this->app);
+        Api::detectUserProvider($this->app);
     }
 
     /**
@@ -64,7 +64,6 @@ class ApiServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(dirname(__DIR__).'/database/migrations');
 
         $this->loadRoutesFrom(dirname(__DIR__).'/routes/api.php');
-        // $this->loadRoutesFrom(dirname(__DIR__).'/routes/admin.php');
 
         // $this->loadViewsFrom(dirname(__DIR__).'/resources/views', 'laravelApi');
     }

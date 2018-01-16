@@ -14,7 +14,7 @@ trait HasApiApps
      */
     public function apps()
     {
-        $this->hasMany(App::class, 'user_id');
+        return $this->hasMany(App::class, 'user_id');
     }
 
     /**
@@ -24,6 +24,6 @@ trait HasApiApps
      */
     public function tokens()
     {
-        $this->hasMany(AccessToken::class, 'user_id');
+        return $this->hasMany(AccessToken::class, 'user_id');
     }
 }

@@ -141,7 +141,7 @@ class TokenGuard implements Guard
             return $token;
         }
 
-        throw new AccessTokenNotProvidedException("AccessToken Is Not Provided", 1);
+        throw new AccessTokenNotProvidedException('AccessToken Is Not Provided');
     }
 
     /**
@@ -156,7 +156,7 @@ class TokenGuard implements Guard
     protected function queryAccessToken($token)
     {
         if (is_null($accessToken = AccessToken::where('access_token', $token)->first())) {
-            throw new InvalidAccessTokenException('AccessToken Is Invalid', 2);
+            throw new InvalidAccessTokenException('AccessToken Is Invalid');
         }
 
         if (Carbon::now()->lte($accessToken->expired_at)) {
@@ -164,7 +164,7 @@ class TokenGuard implements Guard
         }
 
         throw new AccessTokenExpiredException(
-            'AccessToken Is Expired', 3,
+            'AccessToken Is Expired',
             ['now' => Carbon::now(), 'expired' => $accessToken->expired_at]
         );
     }

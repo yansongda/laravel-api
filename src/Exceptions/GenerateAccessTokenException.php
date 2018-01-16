@@ -2,7 +2,7 @@
 
 namespace Yansongda\LaravelApi\Exceptions;
 
-class AccessTokenNotProvidedException extends Exception
+class GenerateAccessTokenException extends Exception
 {
     /**
      * Raw data.
@@ -20,7 +20,7 @@ class AccessTokenNotProvidedException extends Exception
      * @param string|array $raw
      * @param string|int   $code
      */
-    public function __construct($message, $raw = '', $code = 2)
+    public function __construct($message, $raw = '', $code = 5)
     {
         $this->raw = $raw;
 

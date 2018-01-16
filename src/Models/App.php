@@ -15,6 +15,13 @@ class App extends Model
     protected $table = 'api_apps';
 
     /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'app_id';
+
+    /**
      * The guarded attributes on the model.
      *
      * @var array

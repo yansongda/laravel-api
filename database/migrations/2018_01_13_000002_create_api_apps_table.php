@@ -20,7 +20,7 @@ class CreateApiAppsTable extends Migration
             $table->string('others')->nullable();
             $table->timestamps();
 
-            $table->unique('app_id');
+            $table->primary('app_id');
             $table->index('user_id');
         });
     }
