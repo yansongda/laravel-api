@@ -2,8 +2,9 @@
 
 namespace Yansongda\LaravelApi;
 
-use Illuminate\Foundation\Application as LaravelApplication;
-use Laravel\Lumen\Application as LumenApplication;
+use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Support\Str;
+use Yansongda\LaravelApi\Exceptions\CreateAppException;
 use Yansongda\LaravelApi\Exceptions\GenerateAccessTokenException;
 use Yansongda\LaravelApi\Models\App;
 
@@ -12,7 +13,7 @@ class Api
     /**
      * User model.
      *
-     * @var \Illuminate\Contracts\Auth\UserProvider
+     * @var UserProvider
      */
     public static $user;
 
@@ -52,6 +53,30 @@ class Api
             throw new GenerateAccessTokenException('['.get_class($app).'] Must Be An Instance Of [Yansongda\LaravelApi\Models\App]');
         }
 
-        return md5(uniqid('access_token', true).$app->app_id.$app->user_id);
+        return md5(uniqid('access_token', true).$app->user_id.$app->app_id.$app->app_secret);
+    }
+
+    /**
+     * Create app.
+     *
+     * @author yansongda <me@yansongda.cn>
+     *
+     * @param UserProvider $user
+     * @param string|null  $others
+     *
+     * @return App
+     */
+    public static function createApp($user, $others = null)
+    {
+        if (! $user instanceof UserProvider) {
+            throw new CreateAppException('['.get_class($user)."] Must Be An Instance Of [Illuminate\Contracts\Auth\UserProvider]");
+        }
+
+        return App::create([
+            'user_id' => $user->{$user->getKeyName},
+            'app_id' => md5(uniqid('app_id', true).$user->{$user->getKeyName}),
+            'app_secret' => md5(Str::random(32)),
+            'others' => $others,
+        ]);
     }
 }
