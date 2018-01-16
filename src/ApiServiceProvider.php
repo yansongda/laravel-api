@@ -2,10 +2,8 @@
 
 namespace Yansongda\LaravelApi;
 
-use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Lumen\Application as LumenApplication;
 use Yansongda\LaravelApi\Api;
 use Yansongda\LaravelApi\Guards\TokenGuard;
 
