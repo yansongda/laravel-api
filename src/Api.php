@@ -46,6 +46,7 @@ class Api
      * @param App $app
      *
      * @return string
+     * @throws GenerateAccessTokenException
      */
     public static function generateAccessToken($app)
     {
@@ -62,9 +63,10 @@ class Api
      * @author yansongda <me@yansongda.cn>
      *
      * @param UserProvider $user
-     * @param string|null  $others
+     * @param string|null $others
      *
      * @return App
+     * @throws CreateAppException
      */
     public static function createApp($user, $others = null)
     {

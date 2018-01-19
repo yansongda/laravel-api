@@ -19,6 +19,8 @@ class TokenController
      * @param Request $request
      *
      * @return Illuminate\Http\Response
+     * @throws InvalidAppException
+     * @throws \Yansongda\LaravelApi\Exceptions\GenerateAccessTokenException
      */
     public function issueToken(Request $request)
     {

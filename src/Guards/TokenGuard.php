@@ -94,6 +94,8 @@ class TokenGuard implements Guard
      * @param array $credentials
      *
      * @return bool
+     * @throws AccessTokenExpiredException
+     * @throws InvalidAccessTokenException
      */
     public function validate(array $credentials = [])
     {
@@ -110,6 +112,9 @@ class TokenGuard implements Guard
      * @author yansongda <me@yansongda.cn>
      *
      * @return AccessToken
+     * @throws AccessTokenExpiredException
+     * @throws AccessTokenNotProvidedException
+     * @throws InvalidAccessTokenException
      */
     protected function parseAccessToken()
     {
@@ -124,6 +129,7 @@ class TokenGuard implements Guard
      * @author yansongda <me@yansongda.cn>
      *
      * @return string
+     * @throws AccessTokenNotProvidedException
      */
     protected function findAccessToken()
     {
@@ -152,6 +158,8 @@ class TokenGuard implements Guard
      * @param string $token
      *
      * @return AccessToken
+     * @throws AccessTokenExpiredException
+     * @throws InvalidAccessTokenException
      */
     protected function queryAccessToken($token)
     {

@@ -4,7 +4,6 @@ namespace Yansongda\LaravelApi;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
-use Yansongda\LaravelApi\Api;
 use Yansongda\LaravelApi\Guards\TokenGuard;
 
 class ApiServiceProvider extends ServiceProvider
@@ -31,7 +30,7 @@ class ApiServiceProvider extends ServiceProvider
     }
 
     /**
-     * Registe the service.
+     * Register the service.
      *
      * @author yansongda <me@yansonga.cn>
      *
@@ -39,7 +38,7 @@ class ApiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(dirname(__DIR__).'/config/api.php', 'api');
+        $this->mergeConfigFrom(dirname(__DIR__) . '/config/api.php', 'api');
 
         $this->registerGuard();
 
@@ -55,15 +54,13 @@ class ApiServiceProvider extends ServiceProvider
      */
     protected function loadResources()
     {
-        $this->loadMigrationsFrom(dirname(__DIR__).'/database/migrations');
+        $this->loadMigrationsFrom(dirname(__DIR__) . '/database/migrations');
 
-        $this->loadRoutesFrom(dirname(__DIR__).'/routes/api.php');
-
-        // $this->loadViewsFrom(dirname(__DIR__).'/resources/views', 'laravelApi');
+        $this->loadRoutesFrom(dirname(__DIR__) . '/routes/api.php');
     }
 
     /**
-     * Publish resouces.
+     * Publish resources.
      *
      * @author yansongda <me@yansonga.cn>
      *
@@ -71,25 +68,21 @@ class ApiServiceProvider extends ServiceProvider
      */
     protected function publishResources()
     {
-        /*$this->publishes([
-            dirname(__DIR__).'/resources/views' => resource_path('views/vendor/api'),
-        ], 'laravel-api-views');*/
+        $this->publishes([
+            dirname(__DIR__) . '/database/migrations' => database_path('migrations')
+        ], 'laravel-api-migrations');
 
         $this->publishes([
-            dirname(__DIR__).'/database/migrations' => database_path('migrations')
-        ], 'laravel-api-migrations');
-        
-        $this->publishes([
-            dirname(__DIR__).'/config/api.php' => config_path('api.php'),
+            dirname(__DIR__) . '/config/api.php' => config_path('api.php'),
         ], 'laravel-api-config');
     }
 
     /**
-     * Registe guard.
+     * Register guard.
      *
      * @author yansongda <me@yansongda.cn>
      *
-     * @return TokenGuard
+     * @return void
      */
     protected function registerGuard()
     {
@@ -109,6 +102,6 @@ class ApiServiceProvider extends ServiceProvider
     {
         $provider = config('auth.guards.api.provider');
 
-        Api::$user = config('auth.providers.'.$provider.'.model');
+        Api::$user = config('auth.providers.' . $provider . '.model');
     }
 }
