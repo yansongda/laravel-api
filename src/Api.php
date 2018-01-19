@@ -50,11 +50,11 @@ class Api
      */
     public static function generateAccessToken($app)
     {
-        if (! $app instanceof App) {
-            throw new GenerateAccessTokenException('['.get_class($app).'] Must Be An Instance Of [Yansongda\LaravelApi\Models\App]');
+        if (!$app instanceof App) {
+            throw new GenerateAccessTokenException('[' . get_class($app) . '] Must Be An Instance Of [Yansongda\LaravelApi\Models\App]');
         }
 
-        return md5(uniqid('access_token', true).$app->user_id.$app->app_id.$app->app_secret);
+        return md5(uniqid('access_token', true) . $app->user_id . $app->app_id . $app->app_secret);
     }
 
     /**
@@ -70,13 +70,13 @@ class Api
      */
     public static function createApp($user, $others = null)
     {
-        if (! $user instanceof UserProvider) {
-            throw new CreateAppException('['.get_class($user)."] Must Be An Instance Of [Illuminate\Contracts\Auth\UserProvider]");
+        if (!$user instanceof UserProvider) {
+            throw new CreateAppException('[' . get_class($user) . "] Must Be An Instance Of [Illuminate\Contracts\Auth\UserProvider]");
         }
 
         return App::create([
             'user_id' => $user->{$user->getKeyName},
-            'app_id' => md5(uniqid('app_id', true).$user->{$user->getKeyName}),
+            'app_id' => md5(uniqid('app_id', true) . $user->{$user->getKeyName}),
             'app_secret' => md5(Str::random(32)),
             'others' => $others,
         ]);
