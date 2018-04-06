@@ -6,5 +6,5 @@ Route::prefix(Api::$routePrefix)
         ->middleware('api')
         ->namespace('Yansongda\LaravelApi\Http\Controllers')
         ->group(function () {
-    Route::post('token', 'TokenController@issueToken');
+    Route::post('token', 'TokenController@issueToken')->name('api.token');
 });

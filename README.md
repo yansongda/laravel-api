@@ -161,6 +161,10 @@ Api::$routePrefix = 'api';
 // Api::setRoutePrefix(’api‘);
 ```
 
+### 授权 token 路由其它
+
+- 命名为: api.token
+- middleware: api
 
 ## License
 
