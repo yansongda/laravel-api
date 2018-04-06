@@ -38,7 +38,7 @@ class Api
      *
      * @var bool
      */
-    public static $enableRoute = false;
+    public static $enableRoute = true;
 
     /**
      * Set route prefix.
@@ -52,6 +52,18 @@ class Api
     public static function setRoutePrefix($prefix = '')
     {
         self::$routePrefix = $prefix;
+    }
+
+    /**
+     * Set ttl.
+     *
+     * @author yansongda <me@yansongda.cn>
+     *
+     * @param int $ttl
+     */
+    public static function setTtl($ttl = 7200)
+    {
+        self::$ttl = $ttl;
     }
 
     /**

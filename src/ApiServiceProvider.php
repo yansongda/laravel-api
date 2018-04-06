@@ -83,7 +83,14 @@ class ApiServiceProvider extends ServiceProvider
     protected function registerGuard()
     {
         Auth::extend('api', function ($app, $name, array $config) {
-            return new TokenGuard($app['request']);
+            $guard = new TokenGuard($app['request']);
+
+            $user = $guard->user();
+
+            $app['request']['user'] = $user->{$user->getKeyName()};
+            $app['request']['app'] = $guard->app()->app_id;
+
+            return $guard;
         });
     }
 
