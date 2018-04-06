@@ -15,7 +15,7 @@ class Api
     /**
      * User model.
      *
-     * @var UserProvider
+     * @var Model
      */
     public static $user;
 
@@ -83,8 +83,6 @@ class Api
         if (! ($app instanceof App)) {
             throw new GenerateAccessTokenException('[' . get_class($app) . '] Must Be An Instance Of [Yansongda\LaravelApi\Models\App]');
         }
-
-        dd(strval($app->app_id));
 
         return AccessToken::updateOrCreate([
             'user_id' => $app->user_id,
