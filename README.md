@@ -105,7 +105,7 @@ curl --data "app_id=f748864cb16db706be1e408cb49771a3&app_secret=ce57ec31a9f4f37d
 
 ### 服务端认证
 
-只需要在增加 `'auth:api'` 的 middleware 即可，增加后，`$request->user()/$request->user` 即为认证用户，`$request->app()/$request->app` 即为认证的 app_id
+只需要在增加 `'auth:api'` 的 middleware 即可，增加后，`$request->user()/$request->user` 即为认证用户，`$request->app` 即为认证的 app_id
 
 ```php
 use Illuminate\Http\Request;
