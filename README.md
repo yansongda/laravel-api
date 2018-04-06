@@ -9,7 +9,7 @@
 <a href="https://packagist.org/packages/yansongda/laravel-api"><img src="https://poser.pugx.org/yansongda/laravel-api/license" alt="License"></a>
 </p>
 
-当看到 Laravel-API 时，您可能在想：「不是有官方的 Passport 吗，干嘛又重复造轮子？」是的，对于中大型，且需要有 `Oauth` 授权的应用来说， Passport 的确是一个很好的选择。
+当看到 Laravel-API 时，您可能在想：「不是有官方的 Passport 吗，干嘛又重复造轮子？」是的，对于中大型，且需要有 `OAuth` 授权的应用来说， Passport 的确是一个很好的选择。
 
 **但是，对于我们经常开发的中小型应用呢？我们大部分时候可能只是需要提供一个对外服务的 API 接口而已，像是类似于微信开发、支付宝开发那样，给一组 APPID/appsecret 就开始提供纯粹的 API 服务**，所以像 Passport 这样的重量级选手，可能就不是更好的选择了。
 
