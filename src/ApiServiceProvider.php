@@ -38,8 +38,6 @@ class ApiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(dirname(__DIR__) . '/config/api.php', 'api');
-
         $this->registerGuard();
 
         $this->detectUserProvider();
@@ -56,7 +54,9 @@ class ApiServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(dirname(__DIR__) . '/database/migrations');
 
-        $this->loadRoutesFrom(dirname(__DIR__) . '/routes/api.php');
+        if (Api::$enableRoute) {
+            $this->loadRoutesFrom(dirname(__DIR__) . '/routes/api.php');
+        }
     }
 
     /**
@@ -71,10 +71,6 @@ class ApiServiceProvider extends ServiceProvider
         $this->publishes([
             dirname(__DIR__) . '/database/migrations' => database_path('migrations')
         ], 'laravel-api-migrations');
-
-        $this->publishes([
-            dirname(__DIR__) . '/config/api.php' => config_path('api.php'),
-        ], 'laravel-api-config');
     }
 
     /**

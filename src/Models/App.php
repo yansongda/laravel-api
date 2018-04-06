@@ -42,7 +42,7 @@ class App extends Model
      */
     public function user()
     {
-        return $this->belongsTo(Api::$user);
+        return $this->belongsTo(Api::$user, 'user_id', 'id');
     }
 
     /**

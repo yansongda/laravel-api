@@ -32,13 +32,7 @@ class TokenController
             throw new InvalidAppException('Invalid App Info');
         }
 
-        $accessToken = AccessToken::updateOrCreate([
-            'user_id' => $app->user_id,
-            'app_id' => $app->app_id,
-        ], [
-            'access_token' => Api::generateAccessToken($app),
-            'expired_at' => Carbon::now()->addSeconds(config('api.ttl', 7200))
-        ]);
+        $accessToken = Api::generateAccessToken($app);
 
         return response()->json([
             'code' => 0,
