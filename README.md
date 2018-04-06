@@ -147,4 +147,7 @@ Api::$routePrefix = 'api';
 ```
 
 
+## License
+
+MIT
 
