@@ -81,12 +81,27 @@ $access_token = Api::generateAccessToken($app);
 
 ### 客户端使用
 
+#### 获取 access_token
+
 ```shell
 curl --data "app_id=f748864cb16db706be1e408cb49771a3&app_secret=ce57ec31a9f4f37dfbf810c2e4ea79f0" "http://api.dev/api/token"
 # {"code":0,"message":"success","data":{"user_id":1,"app_id":"f748864cb16db706be1e408cb49771a3","access_token":"3857d7d56f4ffe1ab57b8a8f292b85fa","expired_in":7200}}
 
 # php 可使用 guzzle 等类库进行 post 提交获取 accesstoken
 ```
+
+#### 使用
+
+有两种方式可以使用
+
+- url 带上 `access_token` 参数进行认证.
+    
+    例如： `https://api.dev/?access_token=3857d7d56f4ffe1ab57b8a8f292b85fa`
+
+- header 上进行认证
+
+    例如：`Authorization: Bearer 3857d7d56f4ffe1ab57b8a8f292b85fa`
+
 
 ### 服务端认证
 
