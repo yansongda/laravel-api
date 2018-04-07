@@ -20,7 +20,7 @@ class InvalidAccessTokenException extends Exception
      * @param string|array $raw
      * @param string|int   $code
      */
-    public function __construct($message, $raw = '', $code = 3)
+    public function __construct($message, $raw = '', $code = 2)
     {
         $this->raw = $raw;
 

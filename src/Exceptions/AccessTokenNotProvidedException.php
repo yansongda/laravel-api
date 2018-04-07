@@ -20,7 +20,7 @@ class AccessTokenNotProvidedException extends Exception
      * @param string|array $raw
      * @param string|int   $code
      */
-    public function __construct($message, $raw = '', $code = 2)
+    public function __construct($message, $raw = '', $code = 1)
     {
         $this->raw = $raw;
 

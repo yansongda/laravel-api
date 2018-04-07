@@ -20,7 +20,7 @@ class AccessTokenExpiredException extends Exception
      * @param string|array $raw
      * @param string|int   $code
      */
-    public function __construct($message, $raw = '', $code = 4)
+    public function __construct($message, $raw = '', $code = 3)
     {
         $this->raw = $raw;
 
