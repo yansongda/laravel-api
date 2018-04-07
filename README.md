@@ -164,7 +164,7 @@ Api::$routePrefix = 'api';
 - 命名为: api.token
 - middleware: api
 
-### 异常
+## 异常
 
 - AccessTokenNotProvidedException
     
