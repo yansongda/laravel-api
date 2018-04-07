@@ -160,10 +160,15 @@ Api::$routePrefix = 'api';
 // Api::setRoutePrefix(’api‘);
 ```
 
-### 授权 token 路由其它
+### 授权 token 路由说明
 
 - 命名为: api.token
 - middleware: api
+
+### 关于 refresh_token
+
+本着简单易用的原则，并不提供 refresh_token 这种操作，因为发现即使像微信那样提供了 refresh_token 的接口，但是，很多人依然没有去使用，而是直接重新生成新的 access_token。因此，SDK 直接去掉了 refresh_token 的设计。
+
 
 ## 异常
 
