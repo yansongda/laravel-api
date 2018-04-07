@@ -11,9 +11,9 @@
 
 当看到 Laravel-API 时，您可能在想：「不是有官方的 Passport 吗，干嘛又重复造轮子？」是的，对于中大型，且需要有 `OAuth` 授权的应用来说， Passport 的确是一个很好的选择。
 
-**但是，对于我们经常开发的中小型应用呢？我们大部分时候可能只是需要提供一个对外服务的 API 接口而已，像是类似于微信开发、支付宝开发那样，给一组 APPID/appsecret 就开始提供纯粹的 API 服务**，所以像 Passport 这样的重量级选手，可能就不是更好的选择了。
+**但是，对于我们经常开发的中小型应用呢？我们大部分时候可能只是需要提供一个对外服务的 API 接口而已，像是类似于微信开发、支付宝开发那样，给一组 APPID/appsecret 就开始提供纯粹的 API 服务，所以像 Passport 这样的重量级选手，可能就不是更好的选择了。**
 
-您可能又会说：「我可以使用 Passport 的 `密码授权令牌` 啊！」是的，您可以使用，但是，看到 `client_id`/`client_secret`/`username`/`password` 您作何感想？
+您可能又会说：「我可以使用 Passport 的 密码授权令牌 啊！」是的，您可以使用，但是，看到 `client_id`/`client_secret`/`username`/`password` 您作何感想？
 
 您可能又又会说：「我可以使用 Passport 的 `客户端凭据授权令牌`啊！」是的，您也可以使用，但是：
 
@@ -60,7 +60,7 @@ Yansongda\LaravelApi\ApiServiceProvider::class,
 
 2. 在 UserModel 中添加 trait
     
-    在 `config(auth.provider.xx.model)` 的类中，添加 `Yansongda\LaravelApi\Models\Traits\HasApiApps`
+    在 `config(auth.provider.xx.model)` 的类中，添加 `use Yansongda\LaravelApi\Models\Traits\HasApiApps`
 
 3. 运行数据迁移
 
@@ -86,8 +86,6 @@ $access_token = Api::generateAccessToken($app);
 ```shell
 curl --data "app_id=f748864cb16db706be1e408cb49771a3&app_secret=ce57ec31a9f4f37dfbf810c2e4ea79f0" "http://api.dev/api/token"
 # {"code":0,"message":"success","data":{"user_id":1,"app_id":"f748864cb16db706be1e408cb49771a3","access_token":"3857d7d56f4ffe1ab57b8a8f292b85fa","expired_in":7200}}
-
-# php 可使用 guzzle 等类库进行 post 提交获取 accesstoken
 ```
 
 #### 使用
@@ -165,6 +163,35 @@ Api::$routePrefix = 'api';
 
 - 命名为: api.token
 - middleware: api
+
+### 异常
+
+- AccessTokenNotProvidedException
+    
+    当客户端没有提供 access_token 时，抛出 `AccessTokenNotProvidedException` 异常，如果不进行任何额外的操作，默认将返回 `{"code":1,"message":"AccessToken Is Not Provided"}`
+
+- InvalidAccessTokenException
+    
+    当客户端提供了无效的 access_token 时，抛出 `InvalidAccessTokenException` 异常，如果不进行任何额外的操作，默认将返回 `{"code":2,"message":"AccessToken Is Invalid"}`
+
+- AccessTokenExpiredException
+
+    当客户端提供的 access_token 已过期时，抛出 `AccessTokenExpiredException` 异常，如果不进行任何额外的操作，默认将返回 `{"code":3,"message":"AccessToken Is Expired"}`
+
+- GenerateAccessTokenException
+
+    当服务端生成 access_token 失败时，抛出 `GenerateAccessTokenException` 异常，如果不进行任何额外的操作，默认将返回 `{"code":4,"message":"xxxx"}`
+
+- InvalidAppException
+
+    当客户端提供了错误的 app_id 或 app_secret 时，抛出 `InvalidAppException` 异常，如果不进行任何额外的操作，默认将返回 `{"code":5,"message":"Invalid App Info"}`
+
+- CreateAppException
+
+    当服务端生成 app 失败时，抛出 `CreateAppException` 异常，如果不进行任何额外的操作，默认将返回 `{"code":6,"message":"xxxx"}`
+
+
+_以上异常如果不想使用默认的信息，均可自行捕获更改相关信息_
 
 ## License
 
