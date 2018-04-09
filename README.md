@@ -4,7 +4,6 @@
 <a href="https://scrutinizer-ci.com/g/yansongda/laravel-api/?branch=master"><img src="https://scrutinizer-ci.com/g/yansongda/laravel-api/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
 <a href="https://scrutinizer-ci.com/g/yansongda/laravel-api/build-status/master"><img src="https://scrutinizer-ci.com/g/yansongda/laravel-api/badges/build.png?b=master" alt="Build Status"></a>
 <a href="https://packagist.org/packages/yansongda/laravel-api"><img src="https://poser.pugx.org/yansongda/laravel-api/v/stable" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/yansongda/laravel-api"><img src="https://poser.pugx.org/yansongda/laravel-api/downloads" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/yansongda/laravel-api"><img src="https://poser.pugx.org/yansongda/laravel-api/v/unstable" alt="Latest Unstable Version"></a>
 <a href="https://packagist.org/packages/yansongda/laravel-api"><img src="https://poser.pugx.org/yansongda/laravel-api/license" alt="License"></a>
 </p>
